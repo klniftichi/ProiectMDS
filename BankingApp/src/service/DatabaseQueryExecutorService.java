@@ -344,6 +344,33 @@ public class DatabaseQueryExecutorService {
         return result;
     }
 
+    public static Address getAddressQuery(int clientid) {
+        Address result = new Address();
+        String sql = "select addressid from client where id = " + clientid;
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             Statement stmt = conn.createStatement();
+             ResultSet rs1 = stmt.executeQuery(sql)) {
+            if (rs1.next()) {
+                int addressid = rs1.getInt("addressid");
+                String sql2 = "select * from address where id = " + addressid;
+                try (ResultSet rs2 = stmt.executeQuery(sql2)) {
+                    while (rs2.next()) {
+                        int id = rs2.getInt("id");
+                        String city = rs2.getString("city");
+                        String country = rs2.getString("country");
+                        String street = rs2.getString("street");
+
+                        result = new Address(city, country, street);
+                        System.out.println(result);
+                    }
+                }
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        return result;
+    }
+
     public static List<Client> addClientQuery(String name, String cnp, String phone, String email, int addressId) {
         List<Client> result = new ArrayList<>();
         try {

@@ -123,6 +123,13 @@ public class BankingApplication {
         Address address = AddressService.updateAddres(clientId, newCity, newStreet);
     }
 
+    public static void seeAddress() {
+
+        Scanner in = new Scanner(System.in);
+        System.out.print("Client ID =  ");
+        int clientId = Integer.parseInt(in.nextLine());
+        Address address = AddressService.getAddress(clientId);
+    }
     public static void closeAccount() {                  // dezactivare cont dupa iban - iban ul este unic pt orice cont- putem afisa conturile pt verificare
 
         Scanner in = new Scanner(System.in);

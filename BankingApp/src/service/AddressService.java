@@ -10,4 +10,8 @@ public class AddressService {
         Address address = DatabaseQueryExecutorService.updateAddressQuery(id, newCity, newStreet);
         return address;
     }
+    public static Address getAddress(int id) {
+        Address address = DatabaseQueryExecutorService.getAddressQuery(id);
+        return address;
+    }
 }
